@@ -9,6 +9,7 @@ example json 2:
 
 result
 
+```
 # HELP python_gc_objects_collected_total Objects collected during gc
 # TYPE python_gc_objects_collected_total counter
 python_gc_objects_collected_total{generation="0"} 236.0
@@ -52,3 +53,4 @@ json_exporter{label="jira test label 2"} 1.0
 json_exporter{label="jira test label 2"} 1.0
 json_exporter{label="jira test label 2"} 8.0
 json_exporter{label="conf test label"} 1.0
+```
