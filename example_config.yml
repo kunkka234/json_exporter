@@ -18,7 +18,7 @@ targets:
         user_name: myusername1
         password: mypassword1
 
-  - endpoint: https://xxxxxxx.atlassian.net/wiki/rest/api/space/SPACEKEY
+  - endpoint: https://xxxxxxx.atlassian.net/wiki/rest/api/space/TEST
     metrics:
       - name: confluencetest
         help: Conf test
