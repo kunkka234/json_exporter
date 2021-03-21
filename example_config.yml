@@ -1,0 +1,39 @@
+targets:
+  - endpoint: https://xxxxxxx.atlassian.net/rest/api/2/configuration
+    metrics:
+      - name: jiratest1
+        help: jira test
+        label: jira test label 1
+        values:
+          - boolean: '$.watchingEnabled' # true=1, false=0
+      - name: jiratest2
+        help: jira test
+        label: jira test label 2
+        values:
+          - boolean: '$.votingEnabled'
+          - boolean: "$.attachmentsEnabled"
+          - number: '$.timeTrackingConfiguration.workingHoursPerDay'
+    http_client_config:
+      basic_auth:
+        user_name: myusername1
+        password: mypassword1
+
+  - endpoint: https://xxxxxxx.atlassian.net/wiki/rest/api/space/SPACEKEY
+    metrics:
+      - name: confluencetest
+        help: Conf test
+        label: conf test label
+        values:
+          - string: 
+              path: '$.status'
+              expected: current #match=1, unmatch=0
+    http_client_config:
+      basic_auth:
+        user_name: myusername2
+        password: mypasswd2
+
+
+# TODO:
+# proxy:
+#   http_proxy: aaa
+#   https_proxy: aaa
