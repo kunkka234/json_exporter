@@ -95,6 +95,7 @@ python main.py -c ./example_config.yml
 ```
 
 the check the metrics in localhost:7979/metrics
+the last part are the metrics converted by json exporter
 
 ```
 # HELP python_gc_objects_collected_total Objects collected during gc
