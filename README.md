@@ -1,5 +1,7 @@
-example json 1:
+A json exporter for [prometheus](https://prometheus.io/) that convert the json data to prometheus metrics.
+The following example shows how to export the json data from [JIRA Cloud](https://www.atlassian.com/software/jira) & [Confluence CLoud](https://www.atlassian.com/software/confluence) APIs to prometheus with example_config.yml.
 
+example json 1 from JIRA Cloud [Get Configuration API](https://docs.atlassian.com/software/jira/docs/api/REST/1000.824.0/#api/2/configuration-getConfiguration)
 ```
 {
    "votingEnabled":true,
@@ -17,7 +19,8 @@ example json 1:
    }
 }
 ```
-example json 2:
+
+example json 2 from Confluence Cloud [Space API](https://docs.atlassian.com/atlassian-confluence/REST/1000.107.0/#space-contents)
 
 ```
 {
@@ -48,9 +51,50 @@ example json 2:
    }
 }
 ```
+example_config.yml
+```
+targets:
+  - endpoint: https://xxxxxxx.atlassian.net/rest/api/2/configuration
+    metrics:
+      - name: jiratest1
+        help: jira test
+        label: jira test label 1
+        values:
+          - boolean: '$.watchingEnabled' # true=1, false=0
+      - name: jiratest2
+        help: jira test
+        label: jira test label 2
+        values:
+          - boolean: '$.votingEnabled'
+          - boolean: "$.attachmentsEnabled"
+          - number: '$.timeTrackingConfiguration.workingHoursPerDay'
+    http_client_config:
+      basic_auth:
+        user_name: myusername1
+        password: mypassword1
 
+  - endpoint: https://xxxxxxx.atlassian.net/wiki/rest/api/space/TEST
+    metrics:
+      - name: confluencetest
+        help: Conf test
+        label: conf test label
+        values:
+          - string: 
+              path: '$.status'
+              expected: current #match=1, unmatch=0
+    http_client_config:
+      basic_auth:
+        user_name: myusername2
+        password: mypasswd2
 
-result
+```
+
+run the script with following code:
+```
+python main.py -c ./example_config.yml
+```
+
+the check the metrics in localhost:7979/metrics
 
 ```
 # HELP python_gc_objects_collected_total Objects collected during gc
